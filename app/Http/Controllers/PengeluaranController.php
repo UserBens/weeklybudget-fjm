@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\RencanaPengeluaran;
+use Illuminate\Http\Request;
+
+class PengeluaranController extends Controller
+{
+    private array $kategoriList = [
+        'Operasional Kantor',
+        'Transportasi',
+        'Pemeliharaan',
+        'ATK & Perlengkapan',
+        'Konsumsi Rapat',
+        'Lain-lain',
+    ];
+
+    public function indexPengeluaran()
+    {
+        return view('pengeluaran.index', [
+            'kategoriList' => $this->kategoriList,
+        ]);
+    }
+
+    public function storePengeluaran(Request $request)
+    {
+        $validated = $request->validate([
+            'tanggal_input'     => 'required|date',
+            'bulan'             => 'required|integer|between:1,12',
+            'minggu'            => 'required|integer|between:1,4',
+            'kategori'          => 'required|string|max:100',
+            'tipe'              => 'required|in:BAPP,Uang Muka',
+            'dibayarkan_kepada' => 'required|string|max:255',
+            'keterangan'        => 'nullable|string|max:1000',
+            'nominal'           => 'required|integer|min:1',
+            'no_dokumen'        => 'nullable|string|max:100',
+        ], [
+            'tanggal_input.required'     => 'Tanggal input wajib diisi.',
+            'bulan.required'             => 'Bulan wajib dipilih.',
+            'minggu.required'            => 'Minggu wajib dipilih.',
+            'kategori.required'          => 'Kategori pengeluaran wajib dipilih.',
+            'tipe.required'              => 'Tipe (BAPP / Uang Muka) wajib dipilih.',
+            'dibayarkan_kepada.required' => 'Nama penerima pembayaran wajib diisi.',
+            'nominal.required'           => 'Nominal wajib diisi.',
+            'nominal.min'                => 'Nominal harus lebih dari 0.',
+        ]);
+
+        RencanaPengeluaran::create([
+            'tanggal_input'     => $validated['tanggal_input'],
+            'bulan'             => $validated['bulan'],
+            'minggu'            => $validated['minggu'],
+            'kategori'          => $validated['kategori'],
+            'tipe'              => $validated['tipe'],
+            'dibayarkan_kepada' => $validated['dibayarkan_kepada'],
+            'keterangan'        => $validated['keterangan'] ?? null,
+            'nominal'           => $validated['nominal'],
+            'no_dokumen'        => $validated['no_dokumen'] ?? null,
+            'created_by'        => auth()->id() ?? null,
+        ]);
+
+        return redirect()
+            ->route('pengeluaran.index')
+            ->with('success', 'Rencana pengeluaran berhasil disimpan.');
+    }
+}
