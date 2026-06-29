@@ -13,16 +13,16 @@ class UserController extends Controller
         $query = DB::table('user')
             ->leftJoin('user_details', 'user.id', '=', 'user_details.id_user')
             ->select(
-                'user.id', 
-                'user.name', 
-                'user.email', 
-                'user.phone', 
+                'user.id',
+                'user_details.name as name', // MENGAMBIL NAME DARI USER_DETAILS
+                'user.email',
+                'user.phone',
                 'user_details.ktp'
             );
 
-        // Filter berdasarkan Nama
+        // Filter berdasarkan Nama (DIUBAH KE USER_DETAILS)
         if ($request->filled('nama')) {
-            $query->where('user.name', 'like', '%' . $request->nama . '%');
+            $query->where('user_details.name', 'like', '%' . $request->nama . '%');
         }
 
         // Filter berdasarkan Email

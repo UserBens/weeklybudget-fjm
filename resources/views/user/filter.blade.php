@@ -69,6 +69,98 @@
             border-bottom: 1px solid var(--border);
         }
 
+        .sb-logo-badge {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.05em;
+            flex-shrink: 0;
+        }
+
+        .sb-app-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: -0.01em;
+        }
+
+        .sb-nav {
+            flex: 1;
+            padding: 12px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.12s;
+        }
+
+        .nav-item:hover {
+            background: #F5F6FA;
+        }
+
+        .nav-item.active {
+            background: var(--green);
+        }
+
+        .nav-item.active .nav-icon {
+            color: #fff;
+        }
+
+        .nav-item.active .nav-label {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--gray-light);
+            flex-shrink: 0;
+        }
+
+        .nav-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray);
+            line-height: 1.3;
+        }
+
+        .nav-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 8px 0;
+        }
+
+        .nav-section-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--gray-light);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 10px 6px;
+        }
+
+        .sb-bottom {
+            padding: 10px;
+            border-top: 1px solid var(--border);
+        }
+
         /* ── TOPBAR ── */
         #topbar {
             height: 54px;
@@ -182,13 +274,13 @@
             margin-bottom: 28px;
         }
 
+        /* ── FORM ELEMENTS ── */
         .form-row {
             display: grid;
             gap: 20px;
             margin-bottom: 16px;
         }
 
-        /* Tambahan cols-4 untuk form filter */
         .form-row.cols-4 {
             grid-template-columns: repeat(1, 1fr);
         }
@@ -305,6 +397,7 @@
             text-align: left;
             padding: 12px 16px;
             border-bottom: 1px solid var(--border);
+            white-space: nowrap;
         }
 
         td {
@@ -313,15 +406,63 @@
             color: var(--dark);
         }
 
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
         tbody tr:hover {
             background: #F8FAFC;
         }
 
         .empty-state {
-            padding: 32px;
+            padding: 48px 32px;
             text-align: center;
-            color: var(--gray);
+            color: var(--gray-light);
             font-size: 13px;
+        }
+
+        .empty-state svg {
+            margin: 0 auto 12px;
+            display: block;
+            color: #D1D5DB;
+        }
+
+        /* ── BADGE / NOMOR ── */
+        .row-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: #F1F5F9;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray);
+        }
+
+        /* ── RESULT HEADER ── */
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-header-left {}
+
+        .result-count-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: var(--green-light);
+            color: var(--green);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 4px;
         }
     </style>
 </head>
