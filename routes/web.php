@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PengeluaranController;
+use App\Http\Controllers\UserController;
 
 // Public routes
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
@@ -18,6 +19,8 @@ Route::get('/pengeluaran-index', [PengeluaranController::class, 'indexPengeluara
     ->name('pengeluaran.index');
 Route::post('/pengeluaran-store', [PengeluaranController::class, 'storePengeluaran'])
     ->name('pengeluaran.store');
+
+Route::get('/user', [UserController::class, 'index'])->name('user.index');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // });
