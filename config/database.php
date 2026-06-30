@@ -64,6 +64,24 @@ return [
             ]) : [],
         ],
 
+        // TAMBAHKAN BLOK INI DI SINI (Koneksi Kedua ke Database FJM)
+        'mysql_fjm' => [
+            'driver' => 'mysql',
+            'url' => env('DB_FJM_URL'), // Memakai prefix FJM agar tidak tabrakan
+            'host' => env('DB_FJM_HOST', '127.0.0.1'),
+            'port' => env('DB_FJM_PORT', '3306'),
+            'database' => env('DB_FJM_DATABASE'),
+            'username' => env('DB_FJM_USERNAME'),
+            'password' => env('DB_FJM_PASSWORD'),
+            'unix_socket' => env('DB_FJM_SOCKET', ''),
+            'charset' => env('DB_CHARSET', 'utf8mb4'), // Boleh samakan charset utama
+            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),
@@ -149,7 +167,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')).'-database-'),
+            'prefix' => env('REDIS_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')) . '-database-'),
             'persistent' => env('REDIS_PERSISTENT', false),
         ],
 

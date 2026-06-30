@@ -65,8 +65,9 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
-
+    // config/app.php
+    'timezone' => 'Asia/Jakarta',
+    
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

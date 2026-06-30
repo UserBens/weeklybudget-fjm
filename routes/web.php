@@ -17,6 +17,10 @@ Route::get('/dashboard', function () {
 
 Route::get('/pengeluaran-index', [PengeluaranController::class, 'indexPengeluaran'])
     ->name('pengeluaran.index');
+
+Route::get('/pengeluaran-create', [PengeluaranController::class, 'createPengeluaran'])
+    ->name('pengeluaran.create');
+
 Route::post('/pengeluaran-store', [PengeluaranController::class, 'storePengeluaran'])
     ->name('pengeluaran.store');
 

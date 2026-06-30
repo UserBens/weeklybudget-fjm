@@ -214,6 +214,12 @@
             color: var(--gray-light);
         }
 
+        .topbar-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
         /* ── MAIN ── */
         #main-content {
             flex: 1;
@@ -464,6 +470,88 @@
             font-weight: 600;
             margin-top: 4px;
         }
+
+        @media (max-width: 1200px) {
+            body {
+                flex-direction: column;
+            }
+            #sidebar {
+                width: 100%;
+                min-width: 0;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            #topbar {
+                padding: 0 18px;
+            }
+            #page-content {
+                padding: 24px 20px;
+            }
+            .form-card,
+            .table-wrap,
+            .result-header,
+            .page-actions {
+                margin-bottom: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #topbar {
+                flex-wrap: wrap;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 16px;
+                height: auto;
+            }
+            .topbar-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .topbar-user {
+                width: 100%;
+                justify-content: space-between;
+                padding: 10px;
+            }
+            .topbar-username {
+                font-size: 12px;
+            }
+            .topbar-role {
+                font-size: 10px;
+            }
+            .page-header,
+            .page-header-top,
+            .result-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+            }
+            .page-title {
+                font-size: 18px;
+            }
+            .page-subtitle {
+                font-size: 12px;
+            }
+            .form-row {
+                gap: 16px;
+            }
+            .form-row.cols-2,
+            .form-row.cols-3,
+            .form-row.cols-4 {
+                grid-template-columns: 1fr;
+            }
+            .table-wrap {
+                overflow-x: auto;
+            }
+            table {
+                font-size: 12px;
+            }
+            th,
+            td {
+                padding: 10px 12px;
+            }
+        }
     </style>
 </head>
 
@@ -479,7 +567,7 @@
         <div id="topbar">
             <div style="display:flex;align-items:center;gap:8px;">
                 <div class="sb-logo-badge" style="width:28px;height:28px;font-size:10px;">WB</div>
-                <span style="font-size:15px;font-weight:700;color:var(--dark);">Weekly Budget</span>
+                <span class="topbar-title">Weekly Budget</span>
             </div>
             <div class="topbar-right">
                 <div class="topbar-user">

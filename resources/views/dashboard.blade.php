@@ -181,7 +181,7 @@
 
         .topbar-title {
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--dark);
         }
 
@@ -827,6 +827,91 @@
         .tipe-um {
             background: var(--green-light);
             color: var(--green);
+        }
+
+        @media (max-width: 1200px) {
+            body {
+                flex-direction: column;
+            }
+            #sidebar {
+                width: 100%;
+                min-width: 0;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            #topbar {
+                padding: 0 18px;
+            }
+            #page-content {
+                padding: 24px 20px;
+            }
+            .form-card,
+            .table-wrap,
+            .result-header,
+            .page-actions {
+                margin-bottom: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #topbar {
+                flex-wrap: wrap;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 16px;
+                height: auto;
+            }
+            .topbar-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .topbar-user {
+                width: 100%;
+                justify-content: space-between;
+                padding: 10px;
+            }
+            .topbar-username {
+                font-size: 12px;
+            }
+            .topbar-role {
+                font-size: 10px;
+            }
+            .page-header,
+            .page-header-top,
+            .result-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+            }
+            .page-title {
+                font-size: 18px;
+            }
+            .page-subtitle {
+                font-size: 12px;
+            }
+            .form-row {
+                gap: 16px;
+            }
+            .form-row.cols-2,
+            .form-row.cols-3,
+            .form-row.cols-4 {
+                grid-template-columns: 1fr;
+            }
+            .table-wrap {
+                overflow-x: auto;
+            }
+            table {
+                font-size: 12px;
+            }
+            th,
+            td {
+                padding: 10px 12px;
+            }
+            .week-tabs {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
     </style>
 </head>

@@ -16,9 +16,50 @@ class PengeluaranController extends Controller
         'Lain-lain',
     ];
 
-    public function indexPengeluaran()
+    public function indexPengeluaran(\Illuminate\Http\Request $request)
     {
+        $query = RencanaPengeluaran::query();
+
+        // Searching across beberapa kolom
+        if ($search = $request->query('q')) {
+            $query->where(function ($w) use ($search) {
+                $w->where('dibayarkan_kepada', 'like', "%{$search}%")
+                    ->orWhere('keterangan', 'like', "%{$search}%")
+                    ->orWhere('no_dokumen', 'like', "%{$search}%")
+                    ->orWhere('kategori', 'like', "%{$search}%");
+            });
+        }
+
+        // Filters
+        if ($kategori = $request->query('kategori')) {
+            $query->where('kategori', $kategori);
+        }
+        if ($bulan = $request->query('bulan')) {
+            $query->where('bulan', $bulan);
+        }
+        if ($minggu = $request->query('minggu')) {
+            $query->where('minggu', $minggu);
+        }
+        if ($tipe = $request->query('tipe')) {
+            $query->where('tipe', $tipe);
+        }
+
+        $perPage = (int) $request->query('per_page', 10);
+        $perPage = $perPage < 1 ? 10 : ($perPage > 100 ? 100 : $perPage);
+
+        $pengeluarans = $query->orderBy('tanggal_input', 'desc')
+            ->paginate($perPage)
+            ->withQueryString();
+
         return view('pengeluaran.index', [
+            'kategoriList' => $this->kategoriList,
+            'pengeluarans' => $pengeluarans,
+        ]);
+    }
+    
+    public function createPengeluaran()
+    {
+        return view('pengeluaran.create', [
             'kategoriList' => $this->kategoriList,
         ]);
     }
