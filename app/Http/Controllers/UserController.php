@@ -12,12 +12,15 @@ class UserController extends Controller
         // Query dasar melakukan left join antara user dan user_details
         $query = DB::table('user')
             ->leftJoin('user_details', 'user.id', '=', 'user_details.id_user')
+            ->whereNotNull('user_details.name') // Pastikan nama tidak bernilai NULL
+            ->where('user_details.name', '!=', '') // Pastikan nama tidak berupa string kosong
             ->select(
                 'user.id',
                 'user_details.name as name', // MENGAMBIL NAME DARI USER_DETAILS
                 'user.email',
                 'user.phone',
-                'user_details.ktp'
+                'user_details.ktp',
+                'user.status' // MENGAMBIL KOLOM STATUS
             );
 
         // Filter berdasarkan Nama (DIUBAH KE USER_DETAILS)

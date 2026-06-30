@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Filter Data User — Weekly Budget</title>
+    <title>Filter Data User</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -212,12 +212,6 @@
         .topbar-role {
             font-size: 10px;
             color: var(--gray-light);
-        }
-
-        .topbar-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--dark);
         }
 
         /* ── MAIN ── */
@@ -470,88 +464,6 @@
             font-weight: 600;
             margin-top: 4px;
         }
-
-        @media (max-width: 1200px) {
-            body {
-                flex-direction: column;
-            }
-            #sidebar {
-                width: 100%;
-                min-width: 0;
-                height: auto;
-                position: relative;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-            }
-            #topbar {
-                padding: 0 18px;
-            }
-            #page-content {
-                padding: 24px 20px;
-            }
-            .form-card,
-            .table-wrap,
-            .result-header,
-            .page-actions {
-                margin-bottom: 18px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            #topbar {
-                flex-wrap: wrap;
-                align-items: flex-start;
-                gap: 12px;
-                padding: 16px;
-                height: auto;
-            }
-            .topbar-right {
-                width: 100%;
-                justify-content: space-between;
-            }
-            .topbar-user {
-                width: 100%;
-                justify-content: space-between;
-                padding: 10px;
-            }
-            .topbar-username {
-                font-size: 12px;
-            }
-            .topbar-role {
-                font-size: 10px;
-            }
-            .page-header,
-            .page-header-top,
-            .result-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 14px;
-            }
-            .page-title {
-                font-size: 18px;
-            }
-            .page-subtitle {
-                font-size: 12px;
-            }
-            .form-row {
-                gap: 16px;
-            }
-            .form-row.cols-2,
-            .form-row.cols-3,
-            .form-row.cols-4 {
-                grid-template-columns: 1fr;
-            }
-            .table-wrap {
-                overflow-x: auto;
-            }
-            table {
-                font-size: 12px;
-            }
-            th,
-            td {
-                padding: 10px 12px;
-            }
-        }
     </style>
 </head>
 
@@ -566,8 +478,8 @@
         <!-- TOPBAR -->
         <div id="topbar">
             <div style="display:flex;align-items:center;gap:8px;">
-                <div class="sb-logo-badge" style="width:28px;height:28px;font-size:10px;">WB</div>
-                <span class="topbar-title">Weekly Budget</span>
+                <div class="sb-logo-badge" style="width:28px;height:28px;font-size:10px;">DP</div>
+                <span style="font-size:15px;font-weight:700;color:var(--dark);">Data Pelamar</span>
             </div>
             <div class="topbar-right">
                 <div class="topbar-user">
@@ -577,10 +489,10 @@
                                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                     </div>
-                    <div>
-                        <div class="topbar-username">{{ auth()->user()->name ?? 'giant123–' }}</div>
-                        <div class="topbar-role">Administrator</div>
-                    </div>
+                    <!--<div>-->
+                    <!--    <div class="topbar-username">{{ auth()->user()->name ?? 'giant123–' }}</div>-->
+                    <!--    <div class="topbar-role">Administrator</div>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
@@ -590,7 +502,7 @@
 
             <!-- Page header -->
             <div style="margin-bottom:24px;">
-                <div class="page-eyebrow">Weekly Budget · PT. Fokus Jasa Mitra</div>
+                <div class="page-eyebrow">Data Pelamar · PT. Fokus Jasa Mitra</div>
                 <div class="page-title">Data Pengguna</div>
                 <div class="page-subtitle">Filter dan kelola data seluruh pengguna sistem.</div>
             </div>
@@ -658,6 +570,7 @@
                                 <th>Nomor KTP</th>
                                 <th>Email</th>
                                 <th>No. Handphone</th>
+                                <th>Status</th> <!-- TAMBAHAN HEADER STATUS -->
                             </tr>
                         </thead>
                         <tbody>
@@ -670,10 +583,41 @@
                                     <td>{{ $user->ktp ?? '-' }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone ?? '-' }}</td>
+
+                                    <!-- TAMBAHAN KOLOM DATA STATUS -->
+                                    <td>
+                                        @if ($user->status == 0)
+                                            <span
+                                                style="background-color: #fee2e2; color: #991b1b; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">
+                                                Hapus / Blokir
+                                            </span>
+                                        @elseif($user->status == 1)
+                                            <span
+                                                style="background-color: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">
+                                                Belum Verifikasi Email
+                                            </span>
+                                        @elseif($user->status == 2)
+                                            <span
+                                                style="background-color: #dbeafe; color: #1e40af; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">
+                                                Sudah Verifikasi Email & Masih Melengkapi Form CV
+                                            </span>
+                                        @elseif($user->status == 3)
+                                            <span
+                                                style="background-color: #d1fae5; color: #065f46; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">
+                                                Sudah Melengkapi Form CV
+                                            </span>
+                                        @else
+                                            <span
+                                                style="background-color: #f3f4f6; color: #374151; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">
+                                                Tidak Diketahui
+                                            </span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5">
+                                    <!-- COLSPAN DIUBAH MENJADI 6 -->
+                                    <td colspan="6">
                                         <div class="empty-state">
                                             Tidak ada data user yang ditemukan.
                                         </div>
@@ -690,6 +634,7 @@
                         {{ $users->withQueryString()->links() }}
                     </div>
                 @endif
+
             </div>
 
         </div>
