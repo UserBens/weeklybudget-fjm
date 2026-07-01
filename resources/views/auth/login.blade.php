@@ -112,6 +112,17 @@
             <!-- Form -->
             <form method="POST" action="{{ route('login.submit') }}">
                 @csrf
+                <!-- Tampilkan Error Global API -->
+                @error('login')
+                    <div class="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 flex items-start gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <p class="text-sm text-red-600">{{ $message }}</p>
+                    </div>
+                @enderror
 
                 <!-- NIK -->
                 <div class="mb-4">
@@ -124,7 +135,8 @@
                                     d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                             </svg>
                         </span>
-                        <input name="username" type="text" value="{{ old('username') }}" placeholder="Masukkan NIK atau username"
+                        <input name="username" type="text" value="{{ old('username') }}"
+                            placeholder="Masukkan NIK atau username"
                             class="w-full h-11 pl-10 pr-4 rounded-lg border border-gray-200 bg-gray-50 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-fjm-blue focus:ring-2 focus:ring-fjm-blue/10 focus:bg-white transition">
                     </div>
                     @error('username')

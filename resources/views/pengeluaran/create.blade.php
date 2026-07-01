@@ -552,6 +552,7 @@
             body {
                 flex-direction: column;
             }
+
             #sidebar {
                 width: 100%;
                 min-width: 0;
@@ -560,12 +561,15 @@
                 border-right: none;
                 border-bottom: 1px solid var(--border);
             }
+
             #topbar {
                 padding: 0 18px;
             }
+
             #page-content {
                 padding: 24px 20px;
             }
+
             .form-card,
             .table-wrap,
             .result-header,
@@ -582,21 +586,26 @@
                 padding: 16px;
                 height: auto;
             }
+
             .topbar-right {
                 width: 100%;
                 justify-content: space-between;
             }
+
             .topbar-user {
                 width: 100%;
                 justify-content: space-between;
                 padding: 10px;
             }
+
             .topbar-username {
                 font-size: 12px;
             }
+
             .topbar-role {
                 font-size: 10px;
             }
+
             .page-header,
             .page-header-top,
             .result-header {
@@ -604,30 +613,38 @@
                 align-items: flex-start;
                 gap: 14px;
             }
+
             .page-title {
                 font-size: 18px;
             }
+
             .page-subtitle {
                 font-size: 12px;
             }
+
             .form-row {
                 gap: 16px;
             }
+
             .form-row.cols-2,
             .form-row.cols-3,
             .form-row.cols-4 {
                 grid-template-columns: 1fr;
             }
+
             .table-wrap {
                 overflow-x: auto;
             }
+
             table {
                 font-size: 12px;
             }
+
             th,
             td {
                 padding: 10px 12px;
             }
+
             .week-tabs {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
@@ -638,7 +655,24 @@
 <body class="flex h-screen overflow-hidden">
 
     <!-- ══════ SIDEBAR ══════ -->
-    @include('partial.sidebar')
+    <aside id="sidebar">
+        <div class="sb-top">
+            <div class="sb-logo-badge">WB</div>
+            <span class="sb-app-name">Weekly Budget</span>
+        </div>
+
+        <nav class="sb-nav">
+            <div class="nav-section-label">Menu</div>
+
+            <a class="nav-item {{ request()->routeIs('pengeluaran.*') ? 'active' : '' }}"
+                href="{{ route('pengeluaran.index') }}">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span class="nav-label">Input Rencana Pengeluaran</span>
+            </a>
+    </aside>
 
     <!-- ══════ MAIN ══════ -->
     <div id="main-content">

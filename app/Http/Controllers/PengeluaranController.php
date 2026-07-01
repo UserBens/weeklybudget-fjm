@@ -16,9 +16,9 @@ class PengeluaranController extends Controller
         'Lain-lain',
     ];
 
-    public function indexPengeluaran(\Illuminate\Http\Request $request)
+    public function indexPengeluaran(Request $request)
     {
-        $query = RencanaPengeluaran::query();
+        $query = RencanaPengeluaran::query()->orderBy('created_at', 'desc');
 
         // Searching across beberapa kolom
         if ($search = $request->query('q')) {
@@ -56,7 +56,7 @@ class PengeluaranController extends Controller
             'pengeluarans' => $pengeluarans,
         ]);
     }
-    
+
     public function createPengeluaran()
     {
         return view('pengeluaran.create', [
@@ -100,8 +100,10 @@ class PengeluaranController extends Controller
             'created_by'        => auth()->id() ?? null,
         ]);
 
-        return redirect()
-            ->route('pengeluaran.index')
-            ->with('success', 'Rencana pengeluaran berhasil disimpan.');
+        // return redirect()
+        //     ->route('pengeluaran.index')
+        //     ->with('success', 'Rencana pengeluaran berhasil disimpan.');
+
+        return redirect()->route('pengeluaran.index')->with('success', 'Data pengeluaran berhasil disimpan.');
     }
 }

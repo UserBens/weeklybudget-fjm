@@ -833,6 +833,7 @@
             body {
                 flex-direction: column;
             }
+
             #sidebar {
                 width: 100%;
                 min-width: 0;
@@ -841,12 +842,15 @@
                 border-right: none;
                 border-bottom: 1px solid var(--border);
             }
+
             #topbar {
                 padding: 0 18px;
             }
+
             #page-content {
                 padding: 24px 20px;
             }
+
             .form-card,
             .table-wrap,
             .result-header,
@@ -863,21 +867,26 @@
                 padding: 16px;
                 height: auto;
             }
+
             .topbar-right {
                 width: 100%;
                 justify-content: space-between;
             }
+
             .topbar-user {
                 width: 100%;
                 justify-content: space-between;
                 padding: 10px;
             }
+
             .topbar-username {
                 font-size: 12px;
             }
+
             .topbar-role {
                 font-size: 10px;
             }
+
             .page-header,
             .page-header-top,
             .result-header {
@@ -885,36 +894,91 @@
                 align-items: flex-start;
                 gap: 14px;
             }
+
             .page-title {
                 font-size: 18px;
             }
+
             .page-subtitle {
                 font-size: 12px;
             }
+
             .form-row {
                 gap: 16px;
             }
+
             .form-row.cols-2,
             .form-row.cols-3,
             .form-row.cols-4 {
                 grid-template-columns: 1fr;
             }
+
             .table-wrap {
                 overflow-x: auto;
             }
+
             table {
                 font-size: 12px;
             }
+
             th,
             td {
                 padding: 10px 12px;
             }
+
             .week-tabs {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
+
+        /* Kustomisasi scrollbar agar tetap elegan */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, .12);
+            border-radius: 4px;
+        }
+
+        /* Toast Styles */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            background-color: #1a7a3c;
+            /* Warna FJM Green */
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
     </style>
-<!-- Konfigurasi Tailwind untuk warna khusus FJM -->
+    <!-- Konfigurasi Tailwind untuk warna khusus FJM -->
     <script>
         tailwind.config = {
             theme: {
@@ -931,7 +995,8 @@
                             red: '#D0021B',
                             amber: '#D97706',
                             dark: '#1A1D2E',
-                            bg: '#F5F6FA', /* Background tetap dipertahankan */
+                            bg: '#F5F6FA',
+                            /* Background tetap dipertahankan */
                             border: 'rgba(0, 0, 0, .08)'
                         }
                     }
@@ -939,41 +1004,76 @@
             }
         }
     </script>
-
-    <style>
-        /* Kustomisasi scrollbar agar tetap elegan */
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, .12); border-radius: 4px; }
-    </style>
 </head>
 
 <body class="flex h-screen overflow-hidden bg-fjm-bg">
 
     <!-- Sidebar -->
-    @include('partial.sidebar')
+    {{-- @include('partial.sidebar') --}}
+
+    <aside id="sidebar">
+        <div class="sb-top">
+            <div class="sb-logo-badge">WB</div>
+            <span class="sb-app-name">Weekly Budget</span>
+        </div>
+
+        <nav class="sb-nav">
+            <div class="nav-section-label">Menu</div>
+
+            <a class="nav-item {{ request()->routeIs('pengeluaran.*') ? 'active' : '' }}"
+                href="{{ route('pengeluaran.index') }}">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span class="nav-label">Input Rencana Pengeluaran</span>
+            </a>
+    </aside>
 
     <!-- Main Content -->
     <div id="main-content" class="flex-1 flex flex-col overflow-hidden">
 
         <!-- Topbar -->
-        <div id="topbar">
-            <div style="display:flex;align-items:center;gap:8px;">
-                <div class="sb-logo-badge" style="width:28px;height:28px;font-size:10px;">WB</div>
-                <span class="topbar-title">Weekly Budget</span>
+        <!-- Topbar -->
+        <div id="topbar" class="flex justify-between items-center px-6 py-4 bg-white border-b border-gray-100">
+
+            <!-- KIRI: Logo & Judul -->
+            <div class="flex items-center gap-2">
+                {{-- <div
+                    class="sb-logo-badge w-7 h-7 flex items-center justify-center bg-gray-800 text-white rounded text-[10px]">
+                    WB</div> --}}
+                <span class="topbar-title font-bold text-gray-700">Input Rencana Pengeluaran</span>
             </div>
-            <div class="topbar-right">
-                <div class="topbar-user">
-                    <div class="topbar-avatar">
-                        <svg style="width:14px;height:14px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
+
+            <!-- KANAN: User Profile & Dropdown -->
+            <div class="relative">
+                <!-- Area Klik (Nama & NIK) -->
+                <button onclick="toggleDropdown()"
+                    class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-3 py-1.5 rounded-lg transition-colors">
+                    <div class="text-right">
+                        <div class="text-[13px] font-bold text-gray-800 leading-tight">{{ session('name') }}</div>
+                        <div class="text-[10px] text-gray-500 uppercase tracking-wide">NIK: {{ session('user_id') }}
+                        </div>
                     </div>
-                    <div class="topbar-user-info">
-                        <div class="topbar-username">giant123–</div>
-                        <div class="topbar-role">User Input Rencana Pengeluaran</div>
-                    </div>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+
+                <!-- Menu Dropdown -->
+                <div id="userDropdown"
+                    class="hidden absolute right-0 mt-2 w-40 bg-white border border-gray-100 rounded-xl shadow-lg py-1 z-50">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit"
+                            class="w-full text-left px-4 py-2 text-[13px] text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                            </svg>
+                            Logout
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -982,13 +1082,27 @@
         <div id="page-content" class="flex-1 overflow-y-auto p-7">
 
             <!-- Header Halaman -->
-            <div class="mb-6">
-                <div class="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1">
-                    Weekly Budget · PT. Fokus Jasa Mitra
+            <!-- Header Halaman -->
+            <div class="mb-6 flex items-center justify-between">
+                <div>
+                    <div class="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1">
+                        Weekly Budget · PT. Fokus Jasa Mitra
+                    </div>
+                    <h1 class="text-2xl font-bold mb-1">Daftar Rencana Pengeluaran</h1>
+                    <p class="text-[13px] text-gray-500">Tabel berisi data rencana pengeluaran mingguan yang sudah
+                        diinput.</p>
                 </div>
-                <h1 class="text-2xl font-bold mb-1">Daftar Rencana Pengeluaran</h1>
-                <p class="text-[13px] text-gray-500">Tabel berisi data rencana pengeluaran mingguan yang sudah diinput.
-                </p>
+
+                <!-- Tombol Tambah -->
+                <!-- Tombol Tambah (Di Header Halaman) -->
+                <a href="{{ route('pengeluaran.create') }}" style="background-color: rgb(26 122 60);"
+                    class="flex items-center gap-2 text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Tambah Rencana
+                </a>
             </div>
 
             <!-- Card Utama -->
@@ -1151,6 +1265,47 @@
             </div>
         </div>
     </div>
+
+    <!-- Toast Notifikasi -->
+    @if (session('success'))
+        <div id="toast" class="toast-container">
+            <div class="toast">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-sm font-medium">{{ session('success') }}</span>
+            </div>
+        </div>
+
+        <script>
+            // Menghilangkan toast otomatis setelah 3 detik
+            setTimeout(function() {
+                const toast = document.getElementById('toast');
+                if (toast) {
+                    toast.style.transition = 'opacity 0.5s ease';
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 500);
+                }
+            }, 3000);
+        </script>
+    @endif
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Menutup dropdown jika user klik di luar area
+        window.onclick = function(event) {
+            if (!event.target.matches('button') && !event.target.closest('.relative')) {
+                const dropdown = document.getElementById('userDropdown');
+                if (!dropdown.classList.contains('hidden')) {
+                    dropdown.classList.add('hidden');
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>
